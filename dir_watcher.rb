@@ -10,11 +10,11 @@ class DirWatcher
     @notify = RInotify.new
     @notify.add_watch(@dir_path, RInotify::CREATE | RInotify::DELETE | RInotify::MOVE)
 
-    Thread.new { start_watch }
+    @thread = Thread.new { start_watch }
   end
 
   def start_watch
-    while true do
+    while @active do
       @notify.each_event do |event|
         case true
           when event.check_mask(RInotify::CREATE)
@@ -27,6 +27,7 @@ class DirWatcher
   end
 
   def down
+    @thread.exit
     @notify.close
   end
 

@@ -14,7 +14,7 @@ class DirWatcher
   end
 
   def start_watch
-    while @active do
+    while true do
       @notify.each_event do |event|
         case true
           when event.check_mask(RInotify::CREATE)

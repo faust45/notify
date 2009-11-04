@@ -27,7 +27,7 @@ class DirWatcher
   end
 
   def down
-    @thread.exit
+    @thread.kill
     @notify.close
   end
 

@@ -1,4 +1,4 @@
-require 'inotify'
+require 'rinotify'
 require 'find'
 
 class DirWatcher
@@ -7,8 +7,8 @@ class DirWatcher
     @dir_path = dir_path
     @block = block
 
-    @notify = Inotify.new
-    @notify.add_watch(@dir_path, Inotify::CREATE | Inotify::DELETE | Inotify::MOVE)
+    @notify = RInotify.new
+    @notify.add_watch(@dir_path, RInotify::CREATE | RInotify::DELETE | RInotify::MOVE)
 
     @notify.each_event do |event|
       case true

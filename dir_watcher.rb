@@ -37,6 +37,7 @@ class DirWatcher
       else
         log("Timed out\n")
       end
+      sleep(5)
     end
   end
 

@@ -15,14 +15,17 @@ class DirWatcher
 
   def start_watch
     while true do
-      @notify.each_event do |event|
-        case true
-          when event.check_mask(RInotify::CREATE)
-            puts "file was created #{event.name}"
-          when event.check_mask(RInotify::DELETE)
-            puts "file was deleted #{event.name}"
-        end
-      end 
+      has_events = rinotify.wait_for_events(1)
+      if has_events
+        @notify.each_event do |event|
+          case true
+            when event.check_mask(RInotify::CREATE)
+              puts "file was created #{event.name}"
+            when event.check_mask(RInotify::DELETE)
+              puts "file was deleted #{event.name}"
+          end
+        end 
+      end
     end
   end
 

@@ -9,9 +9,17 @@ class DirWatcher
 
     @notify = RInotify.new
     @notify.add_watch(@dir_path, RInotify::CREATE | RInotify::DELETE | RInotify::MOVE)
+  end
 
+  def up
     @thread = Thread.new { start_watch }
     @thread.join
+  end
+
+  def down
+    log("watcher down")
+    @thread.kill
+    @notify.close
   end
 
   def start_watch
@@ -30,12 +38,6 @@ class DirWatcher
         log("Timed out\n")
       end
     end
-  end
-
-  def down
-    log("watcher down")
-    @thread.kill
-    @notify.close
   end
 
 end

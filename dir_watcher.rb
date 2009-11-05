@@ -16,7 +16,7 @@ class DirWatcher
 
   def start_watch
     while true do
-      has_events = rinotify.wait_for_events(2)
+      has_events = @notify.wait_for_events(2)
       if has_events
         @notify.each_event do |event|
           case true

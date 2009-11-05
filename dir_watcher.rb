@@ -15,7 +15,7 @@ class DirWatcher
 
   def start_watch
     while true do
-      has_events = rinotify.wait_for_events(1)
+      has_events = rinotify.wait_for_events(2)
       if has_events
         @notify.each_event do |event|
           case true
@@ -25,6 +25,8 @@ class DirWatcher
               puts "file was deleted #{event.name}"
           end
         end 
+      else
+        print "Timed out\n"
       end
     end
   end

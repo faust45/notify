@@ -21,18 +21,19 @@ class DirWatcher
         @notify.each_event do |event|
           case true
             when event.check_mask(RInotify::CREATE)
-              puts "file was created #{event.name}"
+              log("file was created #{event.name}")
             when event.check_mask(RInotify::DELETE)
-              puts "file was deleted #{event.name}"
+              log("file was deleted #{event.name}")
           end
         end 
       else
-        print "Timed out\n"
+        log("Timed out\n")
       end
     end
   end
 
   def down
+    log("watcher down")
     @thread.kill
     @notify.close
   end

@@ -1,3 +1,4 @@
+require './logger.rb'
 require './config.rb'
 require './dir_watcher.rb'
 
@@ -11,5 +12,5 @@ trap("INT") do
   exit
 end
 
-puts 'blin'
+log 'blin'
 gets

@@ -11,6 +11,7 @@ class DirWatcher
     @notify.add_watch(@dir_path, RInotify::CREATE | RInotify::DELETE | RInotify::MOVE)
 
     @thread = Thread.new { start_watch }
+    @thread.join
   end
 
   def start_watch

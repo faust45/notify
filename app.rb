@@ -1,7 +1,6 @@
 require './logger.rb'
 require './config.rb'
 require './dir_watcher.rb'
-require 'activesupport'
 
 twitter = Twitter::Client.from_config('config.yml')
 

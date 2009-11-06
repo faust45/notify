@@ -1,6 +1,7 @@
-require('rubygems')
-gem('twitter4r', '0.3.2')
-require('twitter')
+require'rubygems'
+gem 'twitter4r', '0.3.2'
+require 'twitter'
+require 'activesupport'
 
 Twitter::Client.configure do |conf|
   conf.protocol = :ssl

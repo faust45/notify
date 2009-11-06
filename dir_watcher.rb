@@ -31,9 +31,9 @@ class DirWatcher
         @notify.each_event do |event|
           case true
             when event.check_mask(RInotify::CREATE)
-              @handlers[:on_delete].map{|block| block.call(evant) }
+              @handlers[:on_delete].map{|block| block.call(event) }
             when event.check_mask(RInotify::DELETE)
-              @handlers[:on_delete].map{|block| block.call(evant) }
+              @handlers[:on_delete].map{|block| block.call(event) }
           end
         end 
       else

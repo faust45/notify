@@ -53,4 +53,5 @@ class DirWatcher
     @handlers[:on_delete] ||= []
     @handlers[:on_delete] << block
   end
+
 end

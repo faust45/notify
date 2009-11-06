@@ -5,6 +5,7 @@ class DirWatcher
 
   def initialize(dir_path, &block)
     @dir_path = dir_path
+    @handlers = {}
     block.bind(self).call
 
     @notify = RInotify.new

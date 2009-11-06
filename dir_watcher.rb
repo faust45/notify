@@ -5,7 +5,7 @@ class DirWatcher
 
   def initialize(dir_path, &block)
     @dir_path = dir_path
-    @block = block
+    block.bind(self).call
 
     @notify = RInotify.new
     @notify.add_watch(@dir_path, RInotify::CREATE | RInotify::DELETE | RInotify::MOVE)
@@ -25,20 +25,31 @@ class DirWatcher
   def start_watch
     while true do
       has_events = @notify.wait_for_events(2)
+
       if has_events
         @notify.each_event do |event|
           case true
             when event.check_mask(RInotify::CREATE)
-              log("file was created #{event.name}")
+              @handlers[:on_create].call
             when event.check_mask(RInotify::DELETE)
-              log("file was deleted #{event.name}")
+              @handlers[:on_delete].call
           end
         end 
       else
         log("Timed out\n")
       end
+
       sleep(5)
     end
   end
 
+  def on_create(&block)
+    @handlers[:on_create] ||= []
+    @handlers[:on_create] << block
+  end
+
+  def on_delete(&block)
+    @handlers[:on_delete] ||= []
+    @handlers[:on_delete] << block
+  end
 end

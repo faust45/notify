@@ -1,3 +1,5 @@
+#!/usr/bin/ruby
+
 require './logger.rb'
 require './config.rb'
 require './dir_watcher.rb'
@@ -6,7 +8,6 @@ twitter = Twitter::Client.from_config('config.yml')
 
 watcher = DirWatcher.new('/home/ftp/ftp_data/raw') do
   on_create do |event|
-    log(event.inspect)
     #twitter.status(:post, "New file #{file_name}.")
     log("file was created #{event.name}")
   end

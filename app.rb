@@ -1,8 +1,9 @@
 #!/usr/local/bin/ruby
 
-require './logger.rb'
-require './config.rb'
-require './dir_watcher.rb'
+NOTIFY_DIR = File.dirname(__FILE__) 
+require NOTIFY_DIR + '/logger.rb'
+require NOTIFY_DIR + '/config.rb'
+require NOTIFY_DIR + '/dir_watcher.rb'
 
 twitter = Twitter::Client.from_config('config.yml')
 

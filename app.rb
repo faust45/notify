@@ -5,7 +5,7 @@ require NOTIFY_DIR + '/logger.rb'
 require NOTIFY_DIR + '/config.rb'
 require NOTIFY_DIR + '/dir_watcher.rb'
 
-twitter = Twitter::Client.from_config('config.yml')
+twitter = Twitter::Client.from_config(NOTIFY_DIR + '/config.yml')
 
 watcher = DirWatcher.new('/home/ftp/ftp_data/raw') do
   on_create do |event|
